@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;Assignment2-TripPlanner&gt;">
     <CLASSES>
+      <root url="file://C:/Go/bin/src/gopkg.in" />
       <root url="file://C:/Go/bin/src/github.com" />
     </CLASSES>
     <JAVADOC />
@@ -12,6 +13,7 @@
       <root url="file://C:/Go/bin/src/github.com/gorilla/handlers/.git" />
       <root url="file://C:/Go/bin/src/github.com/bitly/go-simplejson/.git" />
       <root url="file://C:/Go/bin/src/github.com/bakins/net-http-recover/.git" />
+      <root url="file://C:/Go/bin/src/gopkg.in/mgo.v2/.git" />
       <root url="file://C:/Go/bin/src/github.com/gorilla/mux/.git" />
       <root url="file://C:/Go/bin/src/github.com/gorilla/rpc/.git" />
       <root url="file://C:/Go/bin/src/github.com/julienschmidt/httprouter/.git" />

@@ -1,5 +1,6 @@
 package models
 
+//mongo specific
 import "gopkg.in/mgo.v2/bson"
 
 type (

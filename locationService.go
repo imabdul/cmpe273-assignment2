@@ -1,12 +1,20 @@
 package main
 
 import (
+
+    //created own
+    "./controllers"
+
+    //for mongo driver
+    "gopkg.in/mgo.v2"
+
+    //available in go
     "net/http"
-    "github.com/julienschmidt/httprouter"
     "fmt"
     "log"
-    "gopkg.in/mgo.v2"
-    "./controllers"
+
+    //3rd party
+    "github.com/julienschmidt/httprouter"
 )
 
 //connection to mongoDB in Mongolab

@@ -1,18 +1,26 @@
 package controllers
 
 import (
+    //created own
+    "../models"
+
+    //available in go
     "fmt"
     "net/http"
+    "net/url"
     "encoding/json"
     "strings"
     "errors"
     "log"
     "io"
     "io/ioutil"
+
+    ////for mongo driver
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
+
+    //3rd party built
     "github.com/julienschmidt/httprouter"
-    "../models"
 )
 
 //To control the Consumer resource
@@ -27,10 +35,21 @@ func NewConsumerController(s *mgo.Session) *ConsumerController {
 
 //to fetch the coordinates of consumer with the help Google Maps Api by passing posted address
 func fetchCoordinates(Consumer *models.Consumer) error {
-    mapsUrl := "http://maps.google.com/maps/api/geocode/json?address=" + Consumer.Address + ", " + Consumer.City + ", " + Consumer.State
-    mapsUrl = strings.Replace(mapsUrl, " ", "+", -1)
+client := &http.Client{}
+	address := Consumer.Address + "+" + Consumer.City + "+" + Consumer.State + "+" + Consumer.Zip;
 
-    res, err := http.Get(mapsUrl)
+    mapsUrl := "http://maps.google.com/maps/api/geocode/json?address="
+
+	mapsUrl += url.QueryEscape(address)
+	mapsUrl += "&sensor=false"
+
+	//fmt.Println("URL: "+ mapsUrl)
+    //mapsUrl = strings.Replace(mapsUrl, " ", "+", -1)
+	
+	req, err := http.NewRequest("GET", mapsUrl , nil)
+	res, err := client.Do(req)
+
+   // res, err := http.Get(mapsUrl)
     if err != nil {
         return err
     }
@@ -182,10 +201,12 @@ func updateConsumerLocation(cc ConsumerController, id string, contents io.Reader
     if err != nil {
         return models.Consumer{}, err
     }
+
     updConsumer := models.Consumer{}
     updConsumer.Id = consumer.Id
     updConsumer.Name = consumer.Name
     json.NewDecoder(contents).Decode(&updConsumer)
+
 
     //update and append coordinates
     err = fetchCoordinates(&updConsumer)
